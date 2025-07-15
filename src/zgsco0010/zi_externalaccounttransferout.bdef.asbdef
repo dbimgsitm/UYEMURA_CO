@@ -1,0 +1,27 @@
+managed implementation in class zbp_i_externalaccounttransfero unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZI_ExternalAccountTransferOut alias ExtAcctMaster
+with unmanaged save
+draft table ztgsco0040d
+//persistent table ztgsco0040
+lock master total etag LastChangedAt
+authorization master ( instance )
+etag master LastChangedAt
+{
+  create;
+  update;
+  delete;
+  field ( readonly, numbering : managed ) Id;
+  field ( readonly ) CreatedAt, CreatedBy, LastChangedAt, LastChangedBy;
+  field ( features : instance ) Goodsmovementtype;
+
+  draft action Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare { validation beforesave; }
+
+  validation beforesave on save {create;}
+}

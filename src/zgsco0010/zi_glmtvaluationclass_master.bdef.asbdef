@@ -1,0 +1,31 @@
+managed implementation in class zbp_i_glmtvaluationclass_maste unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZI_GLMtValuationClass_Master alias GLVCMaster
+with unmanaged save
+draft table ztgsco0010d
+//persistent table ztgsco0010
+lock master total etag LastChangedAt
+authorization master ( instance )
+etag master LastChangedAt
+{
+  create;
+  update;
+  delete;
+  field ( readonly, numbering : managed ) Id;
+  field ( readonly ) CreatedAt, CreatedBy, LastChangedAt, LastChangedBy;
+  //field ( readonly : update ) Matvaluationclass;
+  field ( features : instance ) Matvaluationclass;
+
+  draft action Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare { validation beforesave; }
+
+
+  validation beforesave on save { create; }//field Glaccount, Matvaluationclass; }
+  // validation에서 crate..랑 field는 OR로 연결됨
+
+}

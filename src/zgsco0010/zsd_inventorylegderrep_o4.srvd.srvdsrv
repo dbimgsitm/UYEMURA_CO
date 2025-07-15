@@ -1,0 +1,7 @@
+@EndUserText.label: '재고수불부(타계정출고 상세) Service Definition_O4'
+define service ZSD_InventoryLegderRep_O4 {
+  expose ZC_GLMtValuationClass_Master  as GLVCMaster;
+  expose ZC_MTLEDGERCATEGORY_MASTER    as MLCMaster;
+  expose ZC_MovementType_Master        as MTMaster;
+  expose ZC_ExternalAccountTransferOut as ExtAcctMaster;
+}

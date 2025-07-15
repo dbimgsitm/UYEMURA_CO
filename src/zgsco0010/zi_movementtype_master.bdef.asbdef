@@ -1,0 +1,27 @@
+managed implementation in class zbp_i_movementtype_master unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZI_MovementType_Master alias MTMaster
+with unmanaged save
+draft table ztgsco0020d
+//persistent table ztgsco0020
+lock master total etag LastChangedAt
+authorization master ( instance )
+etag master LastChangedAt
+{
+  create;
+  update;
+  delete;
+  field ( readonly, numbering : managed ) Id;
+  field ( readonly ) CreatedAt, CreatedBy, LastChangedAt, LastChangedBy;
+  field ( features : instance ) Movementtype;
+
+  draft action Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare { validation beforesave; }
+
+  validation beforesave on save {create; }
+}

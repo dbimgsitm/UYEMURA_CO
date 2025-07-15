@@ -1,0 +1,26 @@
+managed implementation in class zbp_i_mtledgercategory_master unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZI_MtLedgerCategory_Master alias MTLCMaster
+with unmanaged save
+draft table ztgsco0030d
+//persistent table ztgsco0030
+lock master total etag LastChangedAt
+authorization master ( instance )
+etag master LastChangedAt
+{
+  create;
+  update;
+  delete;
+  field ( readonly, numbering : managed ) Id;
+  field ( readonly ) CreatedAt, CreatedBy, LastChangedAt, LastChangedBy;
+
+  draft action Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare { validation beforesave; }
+
+  validation beforesave on save {create;}
+}
